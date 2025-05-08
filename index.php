@@ -2,17 +2,26 @@
 session_start();
 require_once 'config/db.php';
 
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: welcome.php");
-    exit;
+// Si el usuario está logueado, mostrar todos los planes
+if (isset($_SESSION['usuario_id'])) {
+    $stmt = $conn->query("SELECT p.*, u.nombre as creador_nombre, 
+                         (SELECT COUNT(*) FROM participantes WHERE plan_id = p.id) as participantes_actuales 
+                         FROM planes p 
+                         JOIN usuarios u ON p.creador_id = u.id 
+                         ORDER BY p.fecha DESC");
+} else {
+    // Si no está logueado, mostrar solo los últimos 3 planes
+    $stmt = $conn->query("SELECT p.* FROM planes p ORDER BY fecha DESC LIMIT 3");
 }
-
-$stmt = $conn->query("SELECT p.*, u.nombre as creador_nombre, 
-                     (SELECT COUNT(*) FROM participantes WHERE plan_id = p.id) as participantes_actuales 
-                     FROM planes p 
-                     JOIN usuarios u ON p.creador_id = u.id 
-                     ORDER BY p.fecha DESC");
 $planes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Función para truncar texto
+function truncateText($text, $length = 100) {
+    if (strlen($text) > $length) {
+        return substr($text, 0, $length) . '...';
+    }
+    return $text;
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,21 +55,23 @@ $planes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php if (!empty($planes)): ?>
                     <?php foreach ($planes as $plan): ?>
                         <div class="plan-card">
-                            <div class="plan-header">
-                                <h3><?php echo htmlspecialchars($plan['titulo']); ?></h3>
-                                <span class="creador">Por: <?php echo htmlspecialchars($plan['creador_nombre']); ?></span>
-                            </div>
-                            <div class="plan-content">
-                                <p class="descripcion"><?php echo htmlspecialchars($plan['descripcion']); ?></p>
-                                <p class="fecha"><i class="far fa-calendar"></i> <?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plan['fecha']))); ?></p>
-                                <p class="lugar"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($plan['lugar']); ?></p>
-                                <div class="capacidad-badge">
-                                    <span>Plazas: <?php echo $plan['participantes_actuales']; ?>/<?php echo htmlspecialchars($plan['capacidad_maxima']); ?></span>
-                                </div>
-                            </div>
-                            <a href="ver_plan.php?id=<?php echo $plan['id']; ?>" class="btn-participar">
-                                Ver detalles e inscribirse
-                            </a>
+                            <h3><?php echo htmlspecialchars($plan['titulo']); ?></h3>
+                            <p class="descripcion"><?php echo htmlspecialchars(truncateText($plan['descripcion'])); ?></p>
+                            <p class="fecha">Fecha: <?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plan['fecha']))); ?></p>
+                            <p class="lugar">Lugar: <?php echo htmlspecialchars($plan['lugar']); ?></p>
+                            
+                            <?php if (isset($_SESSION['usuario_id'])): ?>
+                                <p class="creador">Creado por: <?php echo htmlspecialchars($plan['creador_nombre']); ?></p>
+                                <p class="capacidad">
+                                    Plazas: <?php echo $plan['participantes_actuales']; ?>/<?php echo htmlspecialchars($plan['capacidad_maxima']); ?>
+                                </p>
+                                <a href="ver_plan.php?id=<?php echo $plan['id']; ?>" class="btn-participar">
+                                    Ver detalles e inscribirse
+                                </a>
+                            <?php else: ?>
+                                <p class="capacidad">Capacidad: <?php echo htmlspecialchars($plan['capacidad_maxima']); ?> personas</p>
+                                <a href="login.php" class="btn-participar">Iniciar sesión para participar</a>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
