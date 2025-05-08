@@ -204,10 +204,40 @@ form label {
 }
 
 form input {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 4px;
+    /* Estilos para el formulario de crear plan */
+    .create-plan-form textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    .create-plan-form textarea:focus {
+        outline: none;
+        border-color: #3498db;
+    }
+    
+    .success {
+        color: #27ae60;
+        background-color: #e8f8f5;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .form-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
     font-size: 1rem;
     transition: border-color 0.3s;
 }
