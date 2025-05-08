@@ -497,7 +497,7 @@ form div:nth-child(3) {
     border-radius: 8px;
 }
 
-/* Ajustes responsivos */
+/* Ajustes responsivos mejorados */
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
@@ -505,5 +505,79 @@ form div:nth-child(3) {
     
     .planes-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .nav-links a {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    header {
+        padding: 1rem;
+    }
+
+    header nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    main h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .plan-card {
+        padding: 1rem;
+    }
+
+    .welcome-section {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-participar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cta-buttons a {
+        width: 100%;
+        text-align: center;
+    }
+
+    form {
+        padding: 1rem;
+        margin: 1rem;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    main h2 {
+        font-size: 1.5rem;
+    }
+
+    .plan-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .capacidad-badge {
+        width: 100%;
+        text-align: center;
     }
 }
