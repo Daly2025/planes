@@ -4,6 +4,14 @@ require_once 'config/db.php';
 // Obtener solo los últimos 3 planes
 $stmt = $conn->query("SELECT * FROM planes ORDER BY fecha DESC LIMIT 3");
 $planes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Función para truncar texto
+function truncateText($text, $length = 50) {
+    if (strlen($text) > $length) {
+        return substr($text, 0, strrpos(substr($text, 0, $length), ' ')) . '...';
+    }
+    return $text;
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +44,7 @@ $planes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($planes as $plan): ?>
                     <div class="plan-card">
                         <h3><?php echo htmlspecialchars($plan['titulo']); ?></h3>
-                        <p class="descripcion"><?php echo htmlspecialchars($plan['descripcion']); ?></p>
+                        <p class="descripcion"><?php echo htmlspecialchars(truncateText($plan['descripcion'], 50)); ?></p>
                         <p class="fecha">Fecha: <?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plan['fecha']))); ?></p>
                         <p class="lugar">Lugar: <?php echo htmlspecialchars($plan['lugar']); ?></p>
                         <p class="capacidad">Capacidad: <?php echo htmlspecialchars($plan['capacidad_maxima']); ?> personas</p>
