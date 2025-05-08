@@ -57,8 +57,7 @@ function truncateText($text, $length = 50) {
         </div>
 
         <div class="cta-container">
-            <h3>¿Quieres ver más planes?</h3>
-            <p>Regístrate para ver todos los planes disponibles y poder participar en ellos.</p>
+           
             <div class="cta-buttons">
                 <a href="registro.php" class="btn-primary">Registrarse</a>
                 <a href="login.php" class="btn-secondary">Iniciar Sesión</a>
