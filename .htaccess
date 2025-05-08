@@ -1,11 +1,16 @@
 Options -Indexes
-DirectoryIndex index.php
+DirectoryIndex welcome.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /planes/
     
-    # Redirect all requests to index.php except for existing files and directories
+    # Redirigir / a welcome.php para usuarios no autenticados
+    RewriteCond %{REQUEST_URI} ^/planes/?$
+    RewriteCond %{HTTP_COOKIE} !PHPSESSID
+    RewriteRule ^ welcome.php [L]
+    
+    # Mantener index.php para usuarios autenticados
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
