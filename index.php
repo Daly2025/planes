@@ -34,7 +34,9 @@ $planes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p class="fecha">Fecha: <?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plan['fecha']))); ?></p>
                         <p class="lugar">Lugar: <?php echo htmlspecialchars($plan['lugar']); ?></p>
                         <p class="capacidad">Capacidad: <?php echo htmlspecialchars($plan['capacidad_maxima']); ?> personas</p>
-                        <a href="login.php" class="btn-participar">Iniciar sesión para participar</a>
+                        <a href="ver_plan.php?id=<?php echo $plan['id']; ?>" class="btn-participar">
+                            Ver detalles del plan
+                        </a>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

@@ -288,3 +288,92 @@ form div:nth-child(2) {
 form div:nth-child(3) {
     animation-delay: 0.2s;
 }
+
+/* Estilos para la página de detalle del plan */
+.plan-detalle {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.plan-detalle h2 {
+    color: #1a5f7a;
+    border-bottom: 2px solid #e8f4ff;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.plan-info {
+    margin-bottom: 2rem;
+}
+
+.plan-info p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.creador {
+    color: #666;
+    font-style: italic;
+}
+
+.participantes {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.participantes h3 {
+    color: #1a5f7a;
+    margin-bottom: 1rem;
+}
+
+.participantes ul {
+    list-style: none;
+}
+
+.participantes li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e8f4ff;
+}
+
+.btn-inscribirse {
+    display: inline-block;
+    background-color: #1a5f7a;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-inscribirse:hover {
+    background-color: #134b60;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.ya-inscrito, .plan-lleno {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.ya-inscrito {
+    background-color: #e8f4ff;
+    color: #1a5f7a;
+}
+
+.plan-lleno {
+    background-color: #ffe8e8;
+    color: #7a1a1a;
+}
